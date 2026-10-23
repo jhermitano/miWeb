@@ -48,3 +48,19 @@ INSERT INTO testimonios (cliente, cargo, comentario) VALUES
 ('María Barrón', 'Directora de Tecnología - TechCorp', 'El equipo de JVDeveloper logró transformar por completo nuestra plataforma web. Su entrega fue puntual y con excelente calidad de código.'),
 ('Sergi Molea', 'CEO - InnovaGroup', 'Entendieron la visión de nuestro SaaS desde el primer día y escalaron nuestro sistema con total estabilidad.'),
 ('Jane Mos', 'Gerente de Operaciones - GlobalLog', 'La atención personalizada, el soporte constante y la arquitectura robusta superaron nuestras expectativas.');
+
+ALTER TABLE proyectos ADD COLUMN imagen_url VARCHAR(255) DEFAULT NULL AFTER descripcion;
+
+CREATE TABLE IF NOT EXISTS usuarios (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(100) NOT NULL,
+    email VARCHAR(100) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL,
+    fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB;
+
+-- Insertar usuario admin inicial (contraseña: admin123 encripada con password_hash)
+INSERT INTO usuarios (nombre, email, password) VALUES
+('Administrador', 'admin@jvdeveloper.com', '$2y$10$w3/uOnI0rJvG2/G2o4rF/.4B8A2yQ1.K8nZ1W8mJ8f1k9e5J0QG.a');
+
+ALTER TABLE proyectos ADD COLUMN url_proyecto VARCHAR(255) DEFAULT NULL AFTER descripcion;
