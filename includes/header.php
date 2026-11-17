@@ -16,7 +16,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
         $stmt->execute([':email' => $email]);
         $user = $stmt->fetch();
 
-        // Comparación directa de contraseña en texto plano
         if ($user && $password === $user['password']) {
             $_SESSION['usuario_id'] = $user['id'];
             $_SESSION['usuario_nombre'] = $user['nombre'];
@@ -47,7 +46,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
 
-    <!-- Estilos CSS Replicando la Maqueta -->
+    <!-- Estilos CSS -->
     <style>
         :root {
             --bg-color: #070d19;            
@@ -95,7 +94,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
             color: var(--text-main);
         }
 
-        /* Fixed Navigation Header */
+        /* ==============================================
+           HEADER DE ESCRITORIO (GLASSMORPHISM)
+           ============================================== */
         header {
             position: fixed;
             top: 15px;
@@ -104,13 +105,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
             z-index: 1000;
         }
 
-        /* Floating Glassmorphism Nav Bar */
         nav {
             display: flex;
             justify-content: space-between;
             align-items: center;
             padding: 0.6rem 1.5rem;
-            background: rgba(14, 23, 42, 0.65);
+            background: rgba(14, 23, 42, 0.72);
             backdrop-filter: blur(16px);
             -webkit-backdrop-filter: blur(16px);
             border: 1px solid rgba(255, 255, 255, 0.12);
@@ -125,9 +125,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
         }
 
         .logo-img {
-            height: 48px;
+            height: 46px;
             width: auto;
-            max-width: 200px;
+            max-width: 190px;
             object-fit: contain;
             display: block;
         }
@@ -164,7 +164,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
             gap: 0.4rem;
             color: var(--text-muted);
             font-size: 0.9rem;
-            padding: 0.5rem 0.8rem;
+            padding: 0.5rem 0.85rem;
             border-radius: 8px;
             border: 1px solid var(--border-color);
             transition: all 0.3s ease;
@@ -177,7 +177,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
             border-color: var(--cyan-accent);
         }
 
-        /* Botones */
+        /* Botones generales */
         .btn {
             display: inline-block;
             padding: 0.75rem 1.6rem;
@@ -223,7 +223,68 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
             border-color: #ffffff;
         }
 
-        /* Secciones y Tarjetas */
+        /* ==============================================
+           BARRA INFERIOR APP MÓVIL (5 ÍCONOS)
+           ============================================== */
+        .mobile-bottom-nav {
+            display: none;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 66px;
+            background: rgba(10, 17, 32, 0.95);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            z-index: 1200;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 0.25rem;
+            box-shadow: 0 -6px 25px rgba(0, 0, 0, 0.45);
+        }
+
+        .bottom-nav-item {
+            flex: 1;
+            min-width: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 3px;
+            color: var(--text-muted);
+            font-size: 0.68rem;
+            font-weight: 600;
+            text-decoration: none;
+            padding: 6px 2px;
+            transition: color 0.25s ease, transform 0.2s ease;
+        }
+
+        .bottom-nav-item span {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 100%;
+        }
+
+        .bottom-nav-item i {
+            font-size: 1.15rem;
+            transition: transform 0.25s ease;
+        }
+
+        .bottom-nav-item.active,
+        .bottom-nav-item:hover {
+            color: var(--primary-blue);
+        }
+
+        .bottom-nav-item.active i {
+            color: var(--cyan-accent);
+            transform: translateY(-2px);
+        }
+
+        /* ==============================================
+           SECCIONES Y TARJETAS GENERALES
+           ============================================== */
         .services, .why-us, .projects, .process, .testimonials, .contact {
             padding: 5rem 0;
         }
@@ -266,7 +327,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
         }
 
         /* ==============================================
-           ESTILOS PARA LA VENTANA MODAL FLOTANTE (LOGIN)
+           VENTANA MODAL FLOTANTE (LOGIN)
            ============================================== */
         .login-modal-overlay {
             position: fixed;
@@ -274,9 +335,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
             left: 0;
             width: 100vw;
             height: 100vh;
-            background: rgba(7, 13, 25, 0.45);
-            backdrop-filter: blur(3px);
-            -webkit-backdrop-filter: blur(3px);
+            background: rgba(7, 13, 25, 0.55);
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
             z-index: 2000;
             display: flex;
             align-items: center;
@@ -294,7 +355,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
 
         .login-modal-card {
             position: relative;
-            background: rgba(14, 23, 42, 0.92);
+            background: rgba(14, 23, 42, 0.95);
             border: 1px solid rgba(255, 255, 255, 0.15);
             border-radius: 24px;
             padding: 2.8rem 2.2rem 2rem 2.2rem;
@@ -331,20 +392,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
         }
 
         .modal-login-logo {
-            height: 120px;
+            height: 110px;
             width: auto;
-            max-width: 260px;
+            max-width: 250px;
             object-fit: contain;
             display: inline-block;
             filter: drop-shadow(0 4px 12px rgba(0, 210, 211, 0.25));
-        }
-
-        .login-modal-card h2 { 
-            text-align: center; 
-            font-size: 1.5rem;
-            font-weight: 700;
-            margin-bottom: 1.8rem; 
-            color: #fff; 
         }
 
         .modal-form-group { 
@@ -396,10 +449,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
             outline: none;
         }
 
-        .modal-input-control::placeholder {
-            color: rgba(142, 155, 176, 0.5);
-        }
-
         .btn-toggle-pwd-modal {
             background: transparent;
             border: none;
@@ -407,11 +456,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
             padding: 0.85rem 1rem;
             cursor: pointer;
             font-size: 1.1rem;
-            transition: color 0.2s ease;
-        }
-
-        .btn-toggle-pwd-modal:hover {
-            color: #fff;
         }
 
         .modal-help-text {
@@ -450,12 +494,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
             color: var(--primary-blue);
             font-size: 0.88rem;
             font-weight: 600;
-            text-decoration: none;
-            transition: color 0.2s ease;
-        }
-
-        .modal-forgot-link:hover {
-            color: var(--cyan-accent);
         }
 
         .modal-copyright {
@@ -465,8 +503,55 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
             margin-top: 1.6rem;
         }
 
+        /* ==============================================
+           ADAPTABILIDAD RESPONSIVE MÓVIL (ESTILO APP)
+           ============================================== */
         @media (max-width: 900px) {
-            .nav-links { display: none; }
+            body {
+                padding-bottom: 72px;
+            }
+
+            header {
+                top: 0;
+            }
+
+            header .container {
+                width: 100%;
+                max-width: 100%;
+            }
+
+            nav {
+                border-radius: 0;
+                border-top: none;
+                border-left: none;
+                border-right: none;
+                padding: 0.65rem 1.2rem;
+                background: rgba(7, 13, 25, 0.92);
+            }
+
+            .logo-img {
+                height: 38px;
+            }
+
+            .nav-links,
+            .nav-actions .btn-blue {
+                display: none;
+            }
+
+            .btn-access span {
+                display: none;
+            }
+
+            .btn-access {
+                padding: 0.55rem 0.65rem;
+                border-radius: 10px;
+                color: #ffffff;
+                background: rgba(255, 255, 255, 0.06);
+            }
+
+            .mobile-bottom-nav {
+                display: flex;
+            }
         }
     </style>
 </head>
@@ -476,9 +561,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
     <header>
         <div class="container">
             <nav>
+                <!-- Logotipo -->
                 <a href="#inicio" class="logo">
                     <img src="img/logo.png" alt="JVDeveloper Logo" class="logo-img">
                 </a>
+
+                <!-- Enlaces de Escritorio -->
                 <ul class="nav-links">
                     <li><a href="#inicio" class="active">Inicio</a></li>
                     <li><a href="#servicios">Servicios</a></li>
@@ -486,14 +574,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
                     <li><a href="#proyectos">Proyectos</a></li>
                     <li><a href="#contacto">Contacto</a></li>
                 </ul>
+
+                <!-- Acciones Derecha -->
                 <div class="nav-actions">
                     <?php if (isset($_SESSION['usuario_id'])): ?>
                         <a href="logout.php" class="btn-access" title="Cerrar Sesión">
-                            <i class="fa-solid fa-right-from-bracket"></i> Salir
+                            <i class="fa-solid fa-right-from-bracket"></i> <span>Salir</span>
                         </a>
                     <?php else: ?>
                         <button class="btn-access" id="btnOpenLogin" title="Iniciar Sesión">
-                            <i class="fa-solid fa-user-lock"></i> Acceder
+                            <i class="fa-solid fa-user-lock"></i> <span>Acceder</span>
                         </button>
                     <?php endif; ?>
                     <a href="#contacto" class="btn btn-blue">Contáctanos</a>
@@ -502,15 +592,37 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
         </div>
     </header>
 
+    <!-- BARRA DE NAVEGACIÓN INFERIOR FIJA (5 ÍCONOS: INICIO, SERVICIOS, NOSOTROS, PROYECTOS, CONTACTO) -->
+    <nav class="mobile-bottom-nav" id="mobileBottomNav">
+        <a href="#servicios" class="bottom-nav-item" data-target="servicios">
+            <i class="fa-solid fa-layer-group"></i>
+            <span>Servicios</span>
+        </a>
+        <a href="#nosotros" class="bottom-nav-item" data-target="nosotros">
+            <i class="fa-solid fa-users"></i>
+            <span>Nosotros</span>
+        </a>
+        <a href="#inicio" class="bottom-nav-item active" data-target="inicio">
+            <i class="fa-solid fa-house"></i>
+            <span>Inicio</span>
+        </a>
+        <a href="#proyectos" class="bottom-nav-item" data-target="proyectos">
+            <i class="fa-solid fa-laptop-code"></i>
+            <span>Proyectos</span>
+        </a>
+        <a href="#contacto" class="bottom-nav-item" data-target="contacto">
+            <i class="fa-solid fa-headset"></i>
+            <span>Contacto</span>
+        </a>
+    </nav>
+
     <!-- VENTANA MODAL SUPERPUESTA DE LOGIN -->
     <div class="login-modal-overlay <?= !empty($error_login) ? 'active' : '' ?>" id="loginModalOverlay">
         <div class="login-modal-card">
-            <!-- Botón de Cerrar Modal -->
             <button type="button" class="btn-close-modal" id="btnCloseLogin">
                 <i class="fa-solid fa-xmark"></i>
             </button>
 
-            <!-- Logotipo Centrado -->
             <div class="modal-logo-container">
                 <img src="img/login.png" alt="JVDeveloper Logo" class="modal-login-logo">
             </div>
@@ -524,7 +636,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
             <form action="" method="POST">
                 <input type="hidden" name="action" value="login_modal">
                 
-                <!-- ID / Correo -->
                 <div class="modal-form-group">
                     <label for="modal_email">Correo Electrónico</label>
                     <div class="modal-input-wrapper">
@@ -537,7 +648,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
                     </div>
                 </div>
 
-                <!-- Contraseña -->
                 <div class="modal-form-group">
                     <label for="modal_password">Contraseña</label>
                     <div class="modal-input-wrapper">
@@ -549,13 +659,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
                     </div>
                 </div>
 
-                <!-- Botón de Inicio de Sesión -->
                 <button type="submit" class="btn-modal-login">
                     Ingresar al Sistema
                 </button>
             </form>
 
-            <a href="#Inicio" class="modal-forgot-link" onclick="document.getElementById('loginModalOverlay').classList.remove('active');">Volver al Inicio</a>
+            <a href="#inicio" class="modal-forgot-link" onclick="document.getElementById('loginModalOverlay').classList.remove('active');">Volver al Inicio</a>
 
             <div class="modal-copyright">
                 &copy; <?= date('Y') ?> JVDeveloper - Gestión de Proyectos
@@ -563,9 +672,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
         </div>
     </div>
 
-    <!-- Script de control del Modal flotante -->
+    <!-- Scripts de control (Modal + Navegación Inferior) -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            // Control Modal Login
             const loginOverlay = document.getElementById('loginModalOverlay');
             const btnOpen = document.getElementById('btnOpenLogin');
             const btnClose = document.getElementById('btnCloseLogin');
@@ -573,38 +683,33 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
             const modalPasswordInput = document.getElementById('modal_password');
             const pwdIconModal = document.getElementById('pwdIconModal');
 
-            // Abrir Modal
             if (btnOpen && loginOverlay) {
-                btnOpen.addEventListener('click', function() {
-                    loginOverlay.classList.add('active');
-                });
+                btnOpen.addEventListener('click', () => loginOverlay.classList.add('active'));
             }
-
-            // Cerrar Modal con botón X
             if (btnClose && loginOverlay) {
-                btnClose.addEventListener('click', function() {
-                    loginOverlay.classList.remove('active');
-                });
+                btnClose.addEventListener('click', () => loginOverlay.classList.remove('active'));
             }
-
-            // Cerrar Modal al hacer clic fuera de la tarjeta
             if (loginOverlay) {
-                loginOverlay.addEventListener('click', function(e) {
-                    if (e.target === loginOverlay) {
-                        loginOverlay.classList.remove('active');
-                    }
+                loginOverlay.addEventListener('click', (e) => {
+                    if (e.target === loginOverlay) loginOverlay.classList.remove('active');
                 });
             }
-
-            // Ojo conmutador de contraseña
             if (togglePasswordModal && modalPasswordInput) {
                 togglePasswordModal.addEventListener('click', function() {
                     const isPassword = modalPasswordInput.getAttribute('type') === 'password';
                     modalPasswordInput.setAttribute('type', isPassword ? 'text' : 'password');
-                    
                     pwdIconModal.classList.toggle('fa-eye');
                     pwdIconModal.classList.toggle('fa-eye-slash');
                 });
             }
+
+            // Estado activo dinámico en la barra inferior móvil
+            const bottomNavItems = document.querySelectorAll('.bottom-nav-item');
+            bottomNavItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    bottomNavItems.forEach(nav => nav.classList.remove('active'));
+                    this.classList.add('active');
+                });
+            });
         });
     </script>
